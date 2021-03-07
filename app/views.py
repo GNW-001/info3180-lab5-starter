@@ -43,7 +43,7 @@ def login():
         # passed to the login_user() method below.
         # get user id, load into session
         username = form.username.data
-        password = form.username.data
+        password = form.password.data
 
         user = UserProfile.query.filter_by(username=username).first()
         if user is not None and check_password_hash(user.password, password):
@@ -60,7 +60,7 @@ def login():
         return redirect(url_for("secure_page"))  # they should be redirected to a secure-page route instead
     return render_template("login.html", form=form)
 
-@app.route('/secure-page')
+@app.route('/secure_page')
 @login_required
 def secure_page():
     """Render a secure page on our website that only logged in users can access."""
