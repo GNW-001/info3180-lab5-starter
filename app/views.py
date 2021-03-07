@@ -60,6 +60,14 @@ def login():
         return redirect(url_for("secure_page"))  # they should be redirected to a secure-page route instead
     return render_template("login.html", form=form)
 
+@app.route("/logout")
+@login_required
+def logout():
+    # Logout the user and end the session
+    logout_user()
+    flash('You have been logged out.', 'danger')
+    return redirect(url_for('home'))
+
 @app.route('/secure_page')
 @login_required
 def secure_page():
@@ -72,6 +80,7 @@ def secure_page():
 @login_manager.user_loader
 def load_user(id):
     return UserProfile.query.get(int(id))
+
 
 ###
 # The functions below should be applicable to all Flask apps.
